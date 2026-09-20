@@ -1,0 +1,13 @@
+[Unit]
+Description=定时运行 video-dewatermark 健康巡检（默认每 30 分钟）
+
+[Timer]
+# 开机 3 分钟后首跑，此后每 30 分钟一次
+OnBootSec=3min
+OnUnitActiveSec=30min
+# 错过的时间点（如服务器关机）在重启后补跑
+Persistent=true
+Unit=video-dewatermark-health.service
+
+[Install]
+WantedBy=timers.target

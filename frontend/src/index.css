@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@theme {
+  /* 现代工具风：系统字体正文，清晰克制 */
+  --font-sans:
+    system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --color-primary: #6366f1;
+  --color-accent: #8b5cf6;
+}
+
+/* 主题变量（基于 <html class="dark"> 切换，由 useTheme 维护） */
+:root {
+  color-scheme: light;
+  --bg: #eef1f8;
+  --fg: #0f172a;
+  --card: #ffffff;
+  --card-border: rgba(15, 23, 42, 0.08);
+  --muted: #64748b;
+  --subtle: #94a3b8;
+  --surface: #f4f6fb;
+  --surface-hover: #e9edf7;
+  --skeleton: #e6eaf3;
+  --skeleton-soft: #eef1f8;
+  --dot-color: transparent;
+  --error-bg: #fef2f2;
+  --error-border: #fecaca;
+  --error-text: #b91c1c;
+  --accent: #6366f1;
+  --accent-2: #8b5cf6;
+  --glow: rgba(99, 102, 241, 0.35);
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: #0a0e1a;
+  --fg: #e6e9f2;
+  --card: #141a2b;
+  --card-border: rgba(255, 255, 255, 0.08);
+  --muted: #9aa5be;
+  --subtle: #667191;
+  --surface: #1b2236;
+  --surface-hover: #242d47;
+  --skeleton: #1e2640;
+  --skeleton-soft: #181f33;
+  --dot-color: transparent;
+  --error-bg: #2a1416;
+  --error-border: #5b2226;
+  --error-text: #fca5a5;
+  --accent: #818cf8;
+  --accent-2: #a78bfa;
+  --glow: rgba(129, 140, 248, 0.35);
+}
+
+/* 结果卡入场：轻微上移淡入 */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-fade-up {
+  animation: fade-up 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* 顶部 toast 入场：自上落下，带一点回弹 */
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@utility animate-toast-in {
+  animation: toast-in 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+html,
+body,
+#root {
+  min-height: 100dvh;
+}
+
+html {
+  background-color: var(--bg);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  /* 柔和渐变光晕：顶部两团淡色光斑，替代旧版硬点阵 */
+  background-image:
+    radial-gradient(60rem 30rem at 12% -10%, var(--glow), transparent 60%),
+    radial-gradient(50rem 28rem at 100% 0%, rgba(139, 92, 246, 0.18), transparent 55%);
+  background-attachment: fixed;
+  color: var(--fg);
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.3s, color 0.3s;
+  overscroll-behavior-y: none;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* 安全区工具类 */
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 可点击控件的移动端手势优化 */
+@utility touch-control {
+  touch-action: manipulation;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

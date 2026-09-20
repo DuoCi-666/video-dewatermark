@@ -1,0 +1,35 @@
+# Gitee CI — 后端测试 + 前端校验
+# 文档: https://gitee.com/help/articles/4395
+
+version: '1.0'
+
+stages:
+  - test
+
+test-backend:
+  stage: test
+  image: python:3.11-slim
+  variables:
+    PYTHONPATH: "${CI_PROJECT_DIR}/backend"
+  script:
+    - cd backend
+    - pip install -r requirements.txt -q
+    - python -m pytest -q --tb=short
+  only:
+    - master
+    - merge_requests
+
+# 前端此前没有 CI 覆盖：lint 与类型错误只能靠本地发现。
+# 这里跑 oxlint（静态检查）+ tsc -b & vite build（类型检查 + 可构建性）+ 单元测试。
+test-frontend:
+  stage: test
+  image: node:22-slim
+  script:
+    - cd frontend
+    - npm ci --no-audit --no-fund
+    - npm run lint
+    - npm run build
+    - npm run test
+  only:
+    - master
+    - merge_requests

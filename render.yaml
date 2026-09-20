@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: video-dewatermark
+    runtime: docker
+    dockerfilePath: ./Dockerfile.render
+    plan: free

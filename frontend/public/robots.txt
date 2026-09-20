@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# 接口与媒体流对爬虫无意义，且媒体是流式大文件，避免被误抓
+Disallow: /api/
+
+Sitemap: https://cloud.svzn.cn/sitemap.xml

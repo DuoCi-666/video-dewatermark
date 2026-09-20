@@ -1,0 +1,43 @@
+{
+  "id": "/",
+  "name": "聚合视频去水印解析",
+  "short_name": "去水印",
+  "description": "快手、抖音、小红书、B站、微博等 22 平台视频与图文去水印解析：粘贴分享链接即可在线预览、下载无水印原片与原图，支持批量解析与一键打包下载。",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f7f4ee",
+  "theme_color": "#f7f4ee",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "categories": ["utilities", "productivity", "photo"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "开始解析",
+      "short_name": "解析",
+      "description": "打开即可粘贴分享链接",
+      "url": "/?action=parse"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+fastapi==0.116.1
+uvicorn==0.35.0
+httpx==0.28.1
+# SOCKS 代理支持（httpx[socks]）：海外部署用 socks5h:// 国内出口时必需，
+# 缺它时 httpx 收到 socks5/socks5h 代理会直接抛 ImportError。
+socksio==1.0.0
+pytest==8.4.1
+pytest-asyncio==1.4.0
+curl_cffi==0.16.3

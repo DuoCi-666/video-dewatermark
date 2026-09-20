@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- iOS 添加到主屏：Safari 不读 manifest 里的图标，需单独声明 apple-touch-icon -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f7f4ee" />
+    <!-- PWA：可安装（手机「添加到桌面」后像 App 一样打开） -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="application-name" content="聚合视频去水印解析" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="去水印" />
+    <link rel="canonical" href="https://cloud.svzn.cn/" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="description"
+      content="支持快手、抖音、小红书、B站、微博、米游社、腾讯频道、豆包、知乎、好看视频等 22 平台的视频与图文去水印解析：粘贴分享链接即可在线预览、下载无水印原片与原图，免登录免安装，支持批量解析与一键打包下载。"
+    />
+    <title>视频去水印解析 - 快手抖音小红书B站微博等 22 平台</title>
+
+    <!--
+      首屏主题预置：在 CSS/JS 加载前就把 class 落到 <html>，避免刷新时先白后黑闪一下（FOUC）。
+      与 src/hooks/useTheme.ts 共用 'vd:theme' 键，取值 light / dark / system（默认 system）。
+    -->
+    <script>
+      ;(function () {
+        try {
+          var pref = localStorage.getItem('vd:theme') || 'system'
+          var dark =
+            pref === 'dark' ||
+            (pref === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+          if (dark) {
+            document.documentElement.classList.add('dark')
+            document.documentElement.style.colorScheme = 'dark'
+          }
+        } catch (e) {
+          /* 隐私模式：忽略，回落默认浅色 */
+        }
+      })()
+    </script>
+
+    <!-- 分享卡片：微信 / QQ / 微博等读 og:*，X(Twitter) 读 twitter:* -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="聚合视频去水印解析" />
+    <meta property="og:title" content="粘贴链接，拿无水印素材" />
+    <meta
+      property="og:description"
+      content="快手、抖音、小红书、B站、微博、米游社、腾讯频道、豆包、知乎、好看视频等 22 平台视频与图文去水印。免登录，在线预览，支持批量解析与一键打包下载。"
+    />
+    <meta property="og:url" content="https://cloud.svzn.cn/" />
+    <meta property="og:image" content="https://cloud.svzn.cn/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="粘贴链接，拿无水印素材" />
+    <meta
+      name="twitter:description"
+      content="快手、抖音、小红书、B站、微博、米游社、腾讯频道、豆包、知乎、好看视频等 22 平台视频与图文去水印，免登录，支持批量解析与一键打包下载。"
+    />
+    <meta name="twitter:image" content="https://cloud.svzn.cn/og.png" />
+
+    <!--
+      schema.org 结构化数据：纯 SPA 无服务端渲染，爬虫抓不到正文，
+      这里把「站点是什么、能做什么」显式声明，帮助搜索引擎正确建索引。
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "聚合视频去水印解析",
+        "url": "https://cloud.svzn.cn/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "browserRequirements": "需要支持 JavaScript 的现代浏览器",
+        "inLanguage": "zh-CN",
+        "description": "支持快手、抖音、小红书、豆包、B站、微博、米游社、腾讯频道、知乎、好看视频等 22 个平台的视频与图文去水印解析。粘贴分享链接即可在线预览并下载无水印原片与原图，免登录、免安装，支持批量解析与一键打包下载。",
+        "featureList": [
+          "22 个平台分享链接自动识别",
+          "无水印视频与高清原图下载",
+          "多清晰度在线预览切换",
+          "多链接批量解析",
+          "一键打包下载 ZIP",
+          "解析与下载全程代理转发、不保存作品"
+        ],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CNY"
+        },
+        "isAccessibleForFree": true
+      }
+    </script>
+
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

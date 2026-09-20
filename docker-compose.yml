@@ -1,0 +1,62 @@
+# video-dewatermark Docker 一键部署
+#
+#   docker compose up -d --build
+#
+# 服务：
+#   backend  FastAPI 解析服务（内部 3001，不直接对外）
+#   frontend nginx 静态资源 + 反向代理 /api → backend
+#
+# 与 systemd + nginx 方案并存：Docker 作为可选的一键方式，
+# 二者共用同一份代码与同一套后端数据接口，互不影响端口（都用 8080 对外）。
+#
+# 可选环境变量见 docker/.env.example，复制为 .env 后生效：
+#   cp docker/.env.example .env
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    image: video-dewatermark-backend:latest
+    environment:
+      # 数据落盘统一放到容器内 /data（由卷持久化）
+      STATS_STORE_PATH: /data/stats.json
+      FAILURES_STORE_PATH: /data/failures.jsonl
+      TOKEN_STORE_PATH: /data/tokens.json
+      PACK_STORE_PATH: /data/packs
+      # 海外机房指定国内出口代理时透传给解析器（逐平台 *_PROXY / 兜底 PARSE_PROXY）
+      PARSE_PROXY: ${PARSE_PROXY:-}
+      BILI_PROXY: ${BILI_PROXY:-}
+      DOUYIN_PROXY: ${DOUYIN_PROXY:-}
+      XIAOHONGSHU_PROXY: ${XIAOHONGSHU_PROXY:-}
+      MIYOUSHE_PROXY: ${MIYOUSHE_PROXY:-}
+      WEIBO_PROXY: ${WEIBO_PROXY:-}
+    volumes:
+      - vd_data:/data
+    expose:
+      - "3001"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:3001/api/health').status==200 else 1)"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    image: video-dewatermark-frontend:latest
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "${VD_PORT:-8080}:8080"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  vd_data:

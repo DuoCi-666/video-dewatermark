@@ -1,0 +1,12 @@
+[Unit]
+Description=video-dewatermark 平台解析健康巡检
+After=network.target video-dewatermark.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/video-dewatermark
+Environment=VD_BASE=http://127.0.0.1:3001
+# 可选：在此文件里配置 ALERT_WEBHOOK 等变量（缺失不影响运行）
+EnvironmentFile=-/etc/video-dewatermark/health.env
+ExecStart=/opt/miniconda3/bin/python /opt/video-dewatermark/ops/healthcheck.py
+# 巡检失败（退出码 1）时单元标记为 failed，可在 systemctl --failed / journalctl 中看到

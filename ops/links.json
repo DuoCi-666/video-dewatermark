@@ -1,0 +1,199 @@
+{
+  "_comment": "巡检用的真实分享链接。链接会失效（短链过期/作品删除），失效时改这里即可。expect 为 null 表示只校验“能解析出媒体”不校验类型。test_ops_links.py 会校验每个平台都必须有样本。",
+  "kuaishou-video": {
+    "platform": "kuaishou",
+    "expect": "video",
+    "url": "https://v.kuaishou.com/Jv636Re1"
+  },
+  "kuaishou-images": {
+    "platform": "kuaishou",
+    "expect": "images",
+    "url": "https://v.kuaishou.com/n5Lfwbx5"
+  },
+  "kuaishou-single-picture": {
+    "_comment": "真实用户失败样本（2026-09-12），回归用：单图帖 photoType=SINGLE_PICTURE",
+    "platform": "kuaishou",
+    "expect": "images",
+    "url": "https://v.kuaishou.com/7GwR5t4V"
+  },
+  "kuaishou-video-cos": {
+    "_comment": "多样本样本：COS 视频（78.1万播放）",
+    "platform": "kuaishou",
+    "expect": "video",
+    "url": "https://v.kuaishou.com/K2mU5Hsz"
+  },
+  "kuaishou-images-cos": {
+    "_comment": "多样本样本：妲己 COS 图集（239万播放）",
+    "platform": "kuaishou",
+    "expect": "images",
+    "url": "https://v.kuaishou.com/Jx8ho073"
+  },
+  "douyin-video": {
+    "platform": "douyin",
+    "expect": "video",
+    "url": "https://v.douyin.com/PStsaN__umI/"
+  },
+  "xiaohongshu-a": {
+    "platform": "xiaohongshu",
+    "expect": null,
+    "url": "https://xhslink.cn/o/1vwajZnuFZ7"
+  },
+  "xiaohongshu-b": {
+    "platform": "xiaohongshu",
+    "expect": null,
+    "url": "https://xhslink.cn/o/8gwHIr9JtxG"
+  },
+  "bilibili-video": {
+    "platform": "bilibili",
+    "expect": "video",
+    "url": "https://www.bilibili.com/video/BV1eqYx6UE9V"
+  },
+  "doubao-thread": {
+    "platform": "doubao",
+    "expect": null,
+    "url": "https://www.doubao.com/thread/xa1tW3szrrCdLo9OD"
+  },
+  "doubao-video": {
+    "platform": "doubao",
+    "expect": "video",
+    "url": "https://www.doubao.com/video-sharing?source_type=mobile&share_id=55001037844729858&video_id=v0369cg10004d9sa0r27dldf56q8g3j0"
+  },
+  "qqchannel-video": {
+    "_comment": "腾讯频道：curl_cffi 过 EdgeOne 指纹校验 + 只取 feedDetail（页面里另有推荐流 mp4 干扰）",
+    "platform": "qqchannel",
+    "expect": "video",
+    "url": "https://pd.qq.com/s/d8fbql692?b=2"
+  },
+  "qqchannel-images": {
+    "_comment": "腾讯频道图文帖：图挂在顶层 feed.images（contents.images 为空），帖子被删就换一条",
+    "platform": "qqchannel",
+    "expect": "images",
+    "url": "https://pd.qq.com/g/85647211781536672/post/B_5642a56a98cd0c001441152187697058830X60"
+  },
+  "miyoushe-video": {
+    "_comment": "米游社视频帖：hash 路由 /#/article/{id}，走 getPostFull 多档签名直链",
+    "platform": "miyoushe",
+    "expect": "video",
+    "url": "https://m.miyoushe.com/ys?channel=vivo/#/article/78046513"
+  },
+  "miyoushe-images": {
+    "_comment": "米游社图文帖：image_list 原图",
+    "platform": "miyoushe",
+    "expect": "images",
+    "url": "https://m.miyoushe.com/ys?channel=vivo/#/article/23483079"
+  },
+  "weibo-video": {
+    "_comment": "微博视频帖：走 statuses/show，访客 Cookie 绕登录",
+    "platform": "weibo",
+    "expect": "video",
+    "url": "https://weibo.com/1909576453/RhW7J5zAN"
+  },
+  "weibo-images": {
+    "_comment": "微博图文帖：pic_ids → pics[].large 原图",
+    "platform": "weibo",
+    "expect": "images",
+    "url": "https://weibo.com/3802725779/QErEq1CYi"
+  },
+  "toutiao-images": {
+    "_comment": "今日头条微头条图文（2026-09 接入验证）。仅支持 /w/<id>/ 图文；短视频网页端不提供真实视频流（App 独占），不在巡检里。",
+    "platform": "toutiao",
+    "expect": "images",
+    "url": "https://m.toutiao.com/is/5RkxeMfbY5Q/"
+  },
+  "zuiyou-images": {
+    "_comment": "最右图集帖（2026-09 接入验证）：sharePage SSR 的 APP_INITIAL_STATE → postDetail.post.imgs[].urls.origin 原图，短签名失效自动重解析",
+    "platform": "zuiyou",
+    "expect": "images",
+    "url": "https://share.xiaochuankeji.cn/hybrid/share/post?pid=421557374&zy_to=applink&share_count=1&m=ca63f1c7db5b5d731bb10259d47ec31a&d=4cba6ea177996d4c9d308730de76b9bf5e787aa144aaed2433395df15f0123e2&app=zuiyou"
+  },
+  "zuiyou-video": {
+    "_comment": "最右视频帖（2026-09 接入验证）：postDetail.post.videos dict → url 直链，短签名失效自动重解析",
+    "platform": "zuiyou",
+    "expect": "video",
+    "url": "https://share.xiaochuankeji.cn/hybrid/share/post?pid=420880003&zy_to=applink&share_count=1&m=ca63f1c7db5b5d731bb10259d47ec31a&d=4cba6ea177996d4c9d308730de76b9bf5e787aa144aaed2433395df15f0123e2&app=zuiyou"
+  },
+  "weishi-video": {
+    "_comment": "微视视频帖（2026-09 接入验证）：WSH5GetPlayPage API → video_spec_urls 多档签名直链，短链 302 跳转取 feedid，v.weishi.qq.com 反 Referer",
+    "platform": "weishi",
+    "expect": "video",
+    "url": "https://video.weishi.qq.com/dpIibFVG"
+  },
+  "cctv-video": {
+    "_comment": "央视网短视频（2026-09 接入验证）：var guid → getHttpVideoInfo 取分片 mp4；整期长节目只给 hls_url，由媒体代理 ffmpeg 转封装",
+    "platform": "cctv",
+    "expect": "video",
+    "url": "https://tv.cctv.com/2026/09/16/VIDEnZwE5dZAvFR0wZs9PkJa260916.shtml"
+  },
+  "acfun-video": {
+    "_comment": "A站视频（2026-09 接入验证）：桌面 UA 取 window.videoInfo.ksPlayJson 多档 HLS（pkey 短签名，失效自动重解析）",
+    "platform": "acfun",
+    "expect": "video",
+    "url": "https://www.acfun.cn/v/ac48851115"
+  },
+  "qqvideo-video": {
+    "_comment": "腾讯视频（2026-09 接入验证）：getinfo JSONP → ul.ui[0].url + fn + vkey 拼直链；仅免费/公开内容可解析，VIP 正片不支持",
+    "platform": "qqvideo",
+    "expect": "video",
+    "url": "https://v.qq.com/x/page/c0329j2hqcf.html"
+  },
+  "sohu-video": {
+    "_comment": "搜狐视频（2026-09 接入验证）：/v/{base64}.html 解码或 us/{uid}/{vid}.shtml → api.tv.sohu.com 取 url_high_mp4",
+    "platform": "sohu",
+    "expect": "video",
+    "url": "https://tv.sohu.com/us/266683275/744119670.shtml"
+  },
+  "lishipin-video": {
+    "_comment": "梨视频（2026-09 接入验证）：videoStatus.jsp（需站内 Referer）取 srcUrl，把 systemTime 替换成 cont-{contId}",
+    "platform": "lishipin",
+    "expect": "video",
+    "url": "https://www.pearvideo.com/detail_1806878"
+  },
+  "huya-video": {
+    "_comment": "虎牙视频（2026-09 接入验证）：liveapi.huya.com/moment/getMomentContent（需站内 Referer）取 definitions[0].url",
+    "platform": "huya",
+    "expect": "video",
+    "url": "https://v.huya.com/1068614110.html"
+  },
+  "jimeng-video": {
+    "_comment": "即梦AI 作品（2026-09 接入验证）：短链 302 取 published_item_id → get_item_info 原视频（片尾烧录角标，标注为「原视频」）",
+    "platform": "jimeng",
+    "expect": "video",
+    "url": "https://jimeng.jianying.com/s/ujy7sgcLbSw/"
+  },
+  "pipix-video": {
+    "_comment": "皮皮虾视频（2026-09 接入验证）：短链 302 取 item_id → 分享页 RENDER_DATA 取无水印直链（短签名，失效自动重解析）",
+    "platform": "pipix",
+    "expect": "video",
+    "url": "https://h5.pipix.com/s/j8XLViFwwn4/"
+  },
+  "pipix-images": {
+    "_comment": "皮皮虾图集（2026-09 接入验证）：note.multi_image[].url_list 原图",
+    "platform": "pipix",
+    "expect": "images",
+    "url": "https://h5.pipix.com/s/PnsiMNJH3vc/"
+  },
+  "pipigaoxiao-video": {
+    "_comment": "皮皮搞笑视频（2026-09 接入验证）：h5.ippzone.com/spacey/post/{pid} → POST share/fetch_content 取多清晰度直链",
+    "platform": "pipigaoxiao",
+    "expect": "video",
+    "url": "https://h5.ippzone.com/spacey/post/887666955346"
+  },
+  "pipigaoxiao-images": {
+    "_comment": "皮皮搞笑图集（2026-09 接入验证）：imgs[].urls.origin.urls[] 原图",
+    "platform": "pipigaoxiao",
+    "expect": "images",
+    "url": "https://h5.ippzone.com/spacey/post/884630231630"
+  },
+  "haokan-video": {
+    "_comment": "好看视频（2026-09 接入验证）：haokan.baidu.com/haokan/ui-web/video/detail JSON 取 clarityUrl 多档签名直链",
+    "platform": "haokan",
+    "expect": "video",
+    "url": "https://haokan.hao123.com/v?vid=8906507373021707907"
+  },
+  "zhihu-video": {
+    "_comment": "知乎视频（2026-09 接入验证）：GET /api/v4/zvideos/{id} 取 playlist 多清晰度直链",
+    "platform": "zhihu",
+    "expect": "video",
+    "url": "https://www.zhihu.com/zvideo/1342930761977176064"
+  }
+}

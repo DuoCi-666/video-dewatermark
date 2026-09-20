@@ -1,0 +1,11 @@
+# 构建上下文排除项：避免把本地产物/数据/依赖带进镜像
+**/node_modules
+**/backend/data
+**/.venv
+frontend/dist
+**/__pycache__
+**/*.pyc
+.git
+*.log
+.env
+**/health_status.json
